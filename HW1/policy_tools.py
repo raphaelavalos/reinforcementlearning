@@ -78,7 +78,7 @@ def policy_optimization(env, epsilon=0.7, max_iter=1000, t_max=100, gamma=0.95):
     return policy, Q, R, R_cummulated
 
 def compare_value_function(values_n, value):
-    plt.plot((values_n-value).max(axis=1))
+    plt.plot(np.abs(values_n-value).max(axis=1))
     plt.show()
 
 

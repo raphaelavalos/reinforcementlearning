@@ -58,3 +58,7 @@ docs/_build/
 target/
 
 HW1/\.idea/
+
+*.gz
+
+*.aux

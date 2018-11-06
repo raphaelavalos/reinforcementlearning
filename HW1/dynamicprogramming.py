@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 model1_R = np.zeros(((3,3)))
-model1_R[2,0] = 5/100
-model1_R[1,2] = 1
+model1_R[0,2] = 5/100
+model1_R[2,1] = 1
 model1_R[2,2] = 9/10
 
 model1_T = np.zeros(((3,3,3)))
@@ -42,17 +42,17 @@ def value_iteration(transition_matrix, reward_matrix, epsilon=.01, gamma=.95, pl
     n = transition_matrix.shape[0]
     value = np.random.random((n,1))
     update = epsilon+1
-    improvements = list()
+    values = list()
     while update >= epsilon:
         tmp = np.max(reward_matrix + gamma * (transition_matrix @ value)[:, :, 0], axis=1).reshape((n,1))
         update = np.linalg.norm(value - tmp, ord=np.inf)
-        improvements.append(update)
         value = tmp
+        values.append(value)
     policy = np.argmax(reward_matrix + gamma * (transition_matrix @ value)[:, :, 0], axis=1)
     if plot:
-        plt.scatter(x=list(range(len(improvements))), y=improvements)
+        plt.scatter(x=list(range(1,len(values))), y=np.linalg.norm(values[1:]- value, ord=np.inf, axis=1))
         plt.show()
-    return policy
+    return policy, value
 
 def policy_iteration(transition_matrix, reward_matrix, gamma=.95):
     '''
@@ -68,7 +68,7 @@ def policy_iteration(transition_matrix, reward_matrix, gamma=.95):
     '''
     n = transition_matrix.shape[0]
     a = transition_matrix.shape[1]
-    policy = np.random.randint(a, size=n)
+    policy = np.full((3,), 0)
     value = np.random.randint(n, size=(n,1))
     states = np.arange(n)
     while True:
