@@ -67,7 +67,7 @@ def policy_optimization(env, epsilon=0.7, max_iter=1000, t_max=100, gamma=0.95):
             next_state, reward, term = env.step(state, action)
             N[state, action] += 1
             Q[t + 1, state, action] = (1 - 1 / N[state, action]) * Q[t + 1, state, action] + 1 / N[state, action] * (
-                        reward + gamma * Q[t, next_state].max())
+                    reward + gamma * Q[t, next_state].max())
             state = next_state
             R[t] = reward
             R_cummulated[i] += reward
@@ -77,8 +77,8 @@ def policy_optimization(env, epsilon=0.7, max_iter=1000, t_max=100, gamma=0.95):
     policy = Q.argmax(axis=2)
     return policy, Q, R, R_cummulated
 
-def compare_value_function(values_n, value):
-    plt.plot(np.abs(values_n-value).max(axis=1))
+
+def compare_value_function(values_n, value, title=""):
+    plt.plot(np.abs(values_n - value).max(axis=1))
+    plt.title(title)
     plt.show()
-
-
