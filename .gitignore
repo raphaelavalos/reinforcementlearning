@@ -56,3 +56,11 @@ docs/_build/
 
 # PyBuilder
 target/
+
+HW1/\.idea/
+
+*.gz
+
+*.aux
+
+raphael_avalos_TP1\.zip
