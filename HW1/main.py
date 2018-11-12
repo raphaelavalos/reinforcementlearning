@@ -50,9 +50,10 @@ policy_tools.plot_diff_j(mu, v, v_q4)
 
 v_opt = [0.87691855, 0.92820033, 0.98817903, 0.00000000, 0.82369294, 0.92820033, 0.00000000, 0.77818504, 0.82369294,
          0.87691855, 0.82847001]
-for epsilon in [.99, .95, .90, 85, 80]:
-    for j in range(3):
-        policy, Q, R, R_cummulated = policy_tools.policy_optimization(env, epsilon=epsilon, t_max=200, max_iter=5000)
+for epsilon in [.5]:
+    for j in range(1):
+        policy, Q, R, R_cummulated = policy_tools.policy_optimization(env, epsilon=epsilon, t_max=200, max_iter=10000)
         policy_tools.compare_value_function(Q.max(axis=2), v_opt, title="Epsilon : %.2f, Run: %i" % (epsilon, j))
-        # plt.scatter(list(range(len(R_cummulated))), R_cummulated)
-        # plt.show()
+        R_c_w = [R_cummulated[i:i+100].mean() for i in range(len(R_cummulated)-100)]
+        plt.plot(R_c_w)
+        plt.show()
