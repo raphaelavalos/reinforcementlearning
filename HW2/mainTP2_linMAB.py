@@ -2,6 +2,7 @@ import numpy as np
 from linearmab_models import ToyLinearModel, ColdStartMovieLensModel
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+from algorithm import *
 
 random_state = np.random.randint(0, 24532523)
 model = ToyLinearModel(
@@ -23,6 +24,9 @@ T = 6000
 
 nb_simu = 50 # you may want to change this!
 
+
+
+
 ##################################################################
 # define the algorithms
 # - Random
@@ -31,10 +35,10 @@ nb_simu = 50 # you may want to change this!
 # and test it!
 ##################################################################
 
-regret = np.zeros((nb_simu, T))
-norm_dist = np.zeros((nb_simu, T))
 
-for k in tqdm(range(nb_simu), desc="Simulating {}".format(alg_name)):
+algo = LinearUCB(model)
+
+for k in tqdm(range(nb_simu), desc="Simulating {}".format(algo.__name__)):
 
     for t in range(T):
         a_t = ...  # algorithm picks the action
